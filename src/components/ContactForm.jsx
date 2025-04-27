@@ -18,23 +18,24 @@ const ContactForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    const webAppUrl = "https://script.google.com/macros/s/AKfycbxb6DAt3s1CrZlTVdUmKMhl-NgvcY8CinFQx-FKGcOzHx_I4X0dl2HF5JV_CJRX6TmFNw/exec";
-  
+
+    const webAppUrl =
+      "https://script.google.com/macros/s/AKfycbxb6DAt3s1CrZlTVdUmKMhl-NgvcY8CinFQx-FKGcOzHx_I4X0dl2HF5JV_CJRX6TmFNw/exec";
+
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  
+
     // Convert formData into URL-encoded format
     const urlEncodedData = new URLSearchParams(formData).toString();
     console.log("urlEncodedData", urlEncodedData);
-  
+
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
-      body: urlEncodedData,  // Sending data in URL-encoded format
+      body: urlEncodedData, // Sending data in URL-encoded format
       redirect: "follow",
     };
-  
+
     fetch(webAppUrl, requestOptions)
       .then((response) => {
         if (!response.ok) {
@@ -44,7 +45,7 @@ const ContactForm = () => {
       })
       .then((result) => {
         console.log("Success:", result);
-        setFormData({ name: "", email: "", message: "" });  // Clear the form
+        setFormData({ name: "", email: "", message: "" }); // Clear the form
         alert("Message sent successfully!");
       })
       .catch((error) => {
@@ -52,8 +53,6 @@ const ContactForm = () => {
         alert("There was an error submitting your message.");
       });
   };
-  
-  
 
   return (
     <Paper
@@ -76,7 +75,12 @@ const ContactForm = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h5" color="text.primary" fontWeight="bold" align="center">
+        <Typography
+          variant="h5"
+          color="text.primary"
+          fontWeight="bold"
+          align="center"
+        >
           Contact Me
         </Typography>
 

@@ -147,21 +147,10 @@ export default function Experience() {
           variant="body1"
           sx={{ color: "text.secondary", mb: { xs: 2, sm: 4 } }}
         >
-         Powered by coffee, fueled by Stack Overflow, and dangerously good at
-         fixing my own mistakes.
+          Powered by coffee, fueled by Stack Overflow, and dangerously good at
+          fixing my own mistakes.
         </Typography>
       </Box>
-
-
-
-
-
-
-
-
-
-
-
 
       <Grid container spacing={2} justifyContent="center">
         {skills.map((skill, index) => (
