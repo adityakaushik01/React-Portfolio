@@ -22,7 +22,7 @@ const projects = [
     description:
       'Designed and developed a Real Estate Landing Page using HTML, CSS, and JavaScript, integrating a CRM system to enhance lead management and optimize user experience for improved engagement and SEO.',
     technologies: ['HTML', 'CSS', 'Javascript'],
-    githubLink: 'https://github.com/adityakaushik01/React-Portfolio'
+    githubLink: 'https://github.com/adityakaushik01/real-estate-landing-page-theme'
   },
   {
     icon: <PersonIcon />,
@@ -30,7 +30,7 @@ const projects = [
     description:
       'Created a responsive portfolio website using React JS, Material UI, and Tailwind CSS, ensuring optimal performance across desktops, tablets, and smartphones.',
     technologies: ['React.js', 'Tailwind CSS', 'Material UI'],
-    githubLink: 'https://github.com/adityakaushik01/real-estate-landing-page-theme'
+    githubLink: 'https://github.com/adityakaushik01/React-Portfolio'
   },
 ];
 
