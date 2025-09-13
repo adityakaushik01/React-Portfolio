@@ -5,6 +5,7 @@ import FaceIcon from '@mui/icons-material/Face';
 import HouseIcon from '@mui/icons-material/House';
 import PersonIcon from '@mui/icons-material/Person';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import AstroIcon from '@mui/icons-material/AutoAwesome';
 
 
 const projects = [
@@ -32,6 +33,14 @@ const projects = [
     technologies: ['React.js', 'Tailwind CSS', 'Material UI'],
     githubLink: 'https://github.com/adityakaushik01/React-Portfolio'
   },
+  {
+    icon: <AstroIcon />,
+    title: 'Astrology Application',
+    description:
+      'Developed a React-based astrology application using the Prokerala API to generate kundalis, featuring planetary positions, house details, yogas, and doshas with a clean tab-based UI.',
+    technologies: ['React.js', 'Node JS', 'Material UI', 'Tailwind CSS'],
+    githubLink: 'https://github.com/adityakaushik01/Kundali-Marg'
+  }
 ];
 
 export default function Projects() {
