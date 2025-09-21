@@ -31,7 +31,7 @@ const items = [
     imageLight: `url(${DeveloperImageLight})`,
     imageDark: `url(${DeveloperImageDark})`,
     paragraph:
-      "With 1.5+ years of experience in web development, I specialize in React.js, Material UI, MongoDB, and Tailwind CSS. I focus on developing fast, scalable, and user-friendly applications that merge aesthetics with functionality. My goal is to write efficient, maintainable code that ensures smooth performance across all platforms while enhancing the overall user experience.",
+      "With approx 2 years of experience in web development, I specialize in React.js, Material UI, MongoDB, and Tailwind CSS. I focus on developing fast, scalable, and user-friendly applications that merge aesthetics with functionality. My goal is to write efficient, maintainable code that ensures smooth performance across all platforms while enhancing the overall user experience.",
   },
   {
     icon: <LaptopIcon />,

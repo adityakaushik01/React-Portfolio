@@ -35,6 +35,7 @@ const skills = [
   "Material UI",
   "AWS Lambda",
   "MongoDB",
+  "Express.js"
 ];
 
 export default function Experience() {
