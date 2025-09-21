@@ -79,7 +79,7 @@ export default function Navbar() {
               alignItems: 'center',
             }}
           >
-            <Button component="a" href="https://drive.google.com/file/d/1mMg4JIkVgNAgdDdMtobBiLdk-BaoP5gf/view?usp=sharing" target='_blank' color="primary" rel="noopener noreferrer" variant="text" size="small">
+            <Button component="a" href="https://drive.google.com/file/d/1oKxA9pwCSx242uM8XYLY2kmIZFtsI_YX/view?usp=sharing" target='_blank' color="primary" rel="noopener noreferrer" variant="text" size="small">
             Download Resume
             </Button>
             <Button component="a" href="https://www.linkedin.com/in/adityak01/" target='_blank' color="primary" rel="noopener noreferrer" variant="contained" size="small">
