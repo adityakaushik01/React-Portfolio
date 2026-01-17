@@ -13,7 +13,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ColorModeIconDropdown from '../material-ui-files/ColorModeIconDropdown';
 import AdityaNavbarLogo from '../assets/AdityaNavbarLogo.png';
-import Link from '@mui/material/Link';
+
+const handleScroll = (id) => () => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+  toggleDrawer(false)();
+};
 
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -54,21 +61,18 @@ export default function Navbar() {
         <StyledToolbar variant="dense" disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             <img src={AdityaNavbarLogo}  width={90} height={50}/>
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button variant="text" color="info" size="small">
+            <Box sx={{ display: { xs: 'none', md: 'flex' } , gap: 1.5 }}>
+              <Button variant="text" color="info" size="small" onClick={handleScroll('hero')}>
                 Home
               </Button>
-              <Button variant="text" color="info" size="small">
+              <Button variant="text" color="info" size="small" onClick={handleScroll('experience')}>
                 Experience
               </Button>
-              <Button variant="text" color="info" size="small">
-                Highlights
+              <Button variant="text" color="info" size="small" onClick={handleScroll('skills')}>
+                Skills
               </Button>
-              <Button variant="text" color="info" size="small">
+              <Button variant="text" color="info" size="small" onClick={handleScroll('projects')}>
                 Projects
-              </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                Social Medias
               </Button>
             </Box>
           </Box>
@@ -79,9 +83,6 @@ export default function Navbar() {
               alignItems: 'center',
             }}
           >
-            <Button component="a" href="https://drive.google.com/file/d/1GZpa9gbIdSzq4RHa-Mu0g7i3FExfyoxz/view" target='_blank' color="primary" rel="noopener noreferrer" variant="text" size="small">
-            Download Resume
-            </Button>
             <Button component="a" href="https://www.linkedin.com/in/adityak01/" target='_blank' color="primary" rel="noopener noreferrer" variant="contained" size="small">
               Lets Connect
             </Button>
@@ -114,17 +115,11 @@ export default function Navbar() {
                   </IconButton>
                 </Box>
 
-                <MenuItem>Home</MenuItem>
-                <MenuItem>Experience</MenuItem>
-                <MenuItem>Highlights</MenuItem>
-                <MenuItem>Projects</MenuItem>
-                <MenuItem>Social Medias</MenuItem>
+                <MenuItem sx={{ justifyContent: 'center', textAlign: 'center' }} onClick={handleScroll('hero')} >Home</MenuItem>
+                <MenuItem sx={{ justifyContent: 'center', textAlign: 'center' }} onClick={handleScroll('experience')} >Experience</MenuItem>
+                <MenuItem sx={{ justifyContent: 'center', textAlign: 'center' }} onClick={handleScroll('skills')} >Skills</MenuItem>
+                <MenuItem sx={{ justifyContent: 'center', textAlign: 'center' }} onClick={handleScroll('projects')} >Projects</MenuItem>
                 <Divider sx={{ my: 3 }} />
-                <MenuItem>
-                  <Button color="primary" variant="outlined" fullWidth>
-                    Download Resume
-                  </Button>
-                </MenuItem>
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>
                     Lets Connect

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import { Container, Typography, Grid, Paper, Chip } from "@mui/material";
 import FaceIcon from '@mui/icons-material/Face';
@@ -45,7 +44,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <Container sx={{ py: 5, mt: 5 }}>
+    <Container id="projects" sx={{ py: 5, mt: 5 }}>
       <Box sx={{ position: 'relative', display: 'inline-block' }}>
         <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold", position: 'relative', display: 'inline-block' }}>
           Projects

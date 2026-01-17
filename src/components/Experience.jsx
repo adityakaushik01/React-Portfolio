@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Typography, Grid, Paper, Chip } from "@mui/material";
 import {
   Timeline,
@@ -13,7 +12,7 @@ import { Box } from "@mui/material";
 
 const experienceData = [
   {
-    role: "UI/UX Developer",
+    role: "Software Developer",
     company: "LCNC Technologies Pvt. Ltd.",
     duration: "March 2023 - Present",
   },
@@ -40,7 +39,7 @@ const skills = [
 
 export default function Experience() {
   return (
-    <Container sx={{ py: 5, mt: 5 }}>
+    <Container id="experience" sx={{ py: 5, mt: 5 }}>
       <Box
         sx={{
           width: { sm: "100%", md: "60%" },
@@ -112,7 +111,7 @@ export default function Experience() {
           </TimelineItem>
         ))}
       </Timeline>
-      <Box
+      <Box id="skills"
         sx={{
           width: { sm: "100%", md: "60%" },
           position: "relative",
