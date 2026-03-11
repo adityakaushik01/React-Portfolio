@@ -34,10 +34,10 @@ const projects = [
   },
   {
     icon: <AstroIcon />,
-    title: 'Astrology Application - (In Progress)',
+    title: 'Kundali Marg - Astrology Application (In Progress)',
     description:
-      'Developed a React-based astrology application using the Prokerala API to generate kundalis, featuring planetary positions, house details, yogas, and doshas with a clean tab-based UI.',
-    technologies: ['React.js', 'Node JS', 'Material UI', 'Tailwind CSS', "Express JS"],
+      'Built a web application that generates a Vedic Janam Kundali (birth chart) using a user birth details. The app calculates planetary positions and displays them in a North Indian Rasi chart, along with planetary and house information through an interactive UI.',
+    technologies: ['React.js', 'Tailwind CSS', 'Material UI', 'Node.js', 'Express.js', 'Swiss Ephemeris'],
     githubLink: 'https://github.com/adityakaushik01/Kundali-Marg'
   }
 ];
