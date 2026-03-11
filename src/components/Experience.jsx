@@ -19,7 +19,7 @@ const experienceData = [
   {
     role: "Web Developer",
     company: "Digital Rubix",
-    duration: "August 2023 - January 2023",
+    duration: "August 2023 - January 2024",
   },
 ];
 
