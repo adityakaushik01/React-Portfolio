@@ -10,8 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "serve": "vite preview",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d dist"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -22,6 +22,7 @@
     "@mui/material": "^6.4.7",
     "@mui/styled-engine-sc": "^6.4.6",
     "@tailwindcss/vite": "^4.0.9",
+    "framer-motion": "^12.40.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "styled-components": "^6.1.15",

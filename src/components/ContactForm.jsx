@@ -1,88 +1,97 @@
+// ContactForm.jsx
+
 import { useState } from "react";
-import { Box, TextField, Button, Typography, Paper } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  CircularProgress,
+  Alert,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import { motion } from "framer-motion";
+
+const WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbxb6DAt3s1CrZlTVdUmKMhl-NgvcY8CinFQx-FKGcOzHx_I4X0dl2HF5JV_CJRX6TmFNw/exec";
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus("loading");
 
-    const webAppUrl =
-      "https://script.google.com/macros/s/AKfycbxb6DAt3s1CrZlTVdUmKMhl-NgvcY8CinFQx-FKGcOzHx_I4X0dl2HF5JV_CJRX6TmFNw/exec";
-
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-    // Convert formData into URL-encoded format
     const urlEncodedData = new URLSearchParams(formData).toString();
-    console.log("urlEncodedData", urlEncodedData);
 
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: urlEncodedData, // Sending data in URL-encoded format
-      redirect: "follow",
-    };
-
-    fetch(webAppUrl, requestOptions)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();
-      })
-      .then((result) => {
-        console.log("Success:", result);
-        setFormData({ name: "", email: "", message: "" }); // Clear the form
-        alert("Message sent successfully!");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("There was an error submitting your message.");
+    try {
+      const response = await fetch(WEB_APP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: urlEncodedData,
+        redirect: "follow",
       });
+
+      if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+
+      setFormData({ name: "", email: "", message: "" });
+      setStatus("success");
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setStatus("error");
+    }
   };
 
   return (
     <Paper
+      elevation={3}
       sx={{
-        maxWidth: 600,
-        margin: "auto",
-        padding: 4,
-        borderRadius: 2,
-        boxShadow: 3,
+        width: "100%",
+        padding: { xs: 3, sm: 4 },
+        borderRadius: 3,
+        border: "1px solid",
+        borderColor: "divider",
       }}
     >
       <Box
         component="form"
         onSubmit={handleSubmit}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}
       >
-        <Typography
-          variant="h5"
-          color="text.primary"
-          fontWeight="bold"
-          align="center"
-        >
-          Contact Me
+        <Typography variant="h6" fontWeight="bold" color="text.primary">
+          Send a Message
         </Typography>
+
+        {/* Success / Error feedback */}
+        {status === "success" && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Alert severity="success" onClose={() => setStatus("idle")}>
+              Message sent successfully. I'll get back to you soon.
+            </Alert>
+          </motion.div>
+        )}
+        {status === "error" && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Alert severity="error" onClose={() => setStatus("idle")}>
+              Something went wrong. Please try again or email me directly.
+            </Alert>
+          </motion.div>
+        )}
 
         <TextField
           label="Your Name"
@@ -92,10 +101,7 @@ const ContactForm = () => {
           variant="outlined"
           fullWidth
           required
-          sx={{
-            borderRadius: 2,
-            pt: 1,
-          }}
+          disabled={status === "loading"}
         />
         <TextField
           label="Your Email"
@@ -106,10 +112,7 @@ const ContactForm = () => {
           variant="outlined"
           fullWidth
           required
-          sx={{
-            borderRadius: 2,
-            pt: 1,
-          }}
+          disabled={status === "loading"}
         />
         <TextField
           label="Your Message"
@@ -120,34 +123,45 @@ const ContactForm = () => {
           fullWidth
           required
           multiline
-          sx={{
-            borderRadius: 2,
-            pt: 1,
-          }}
+          rows={5}
+          disabled={status === "loading"}
         />
-        <Button
-          type="submit"
-          sx={{
-            padding: "1rem",
-            fontWeight: "bold",
-            borderRadius: 2,
-            boxShadow: 2,
-            mt: 2,
-            backgroundColor: "primary.main",
-            color: "white",
-            border: "2px solid transparent",
-            transition: "all 0.3s ease-in-out",
-            "&:hover": {
-              backgroundColor: "transparent",
-              color: "primary.main",
-              border: "2px solid",
-              borderColor: "primary.main",
-              boxShadow: 3,
-            },
-          }}
-        >
-          Send Message
-        </Button>
+
+        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+          <Button
+            type="submit"
+            fullWidth
+            disabled={status === "loading"}
+            endIcon={
+              status === "loading" ? (
+                <CircularProgress size={18} color="inherit" />
+              ) : (
+                <SendIcon />
+              )
+            }
+            sx={{
+              py: 1.4,
+              fontWeight: "bold",
+              borderRadius: 2,
+              backgroundColor: "primary.main",
+              color: "white",
+              border: "2px solid transparent",
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: "primary.main",
+                border: "2px solid",
+                borderColor: "primary.main",
+              },
+              "&:disabled": {
+                opacity: 0.7,
+                cursor: "not-allowed",
+              },
+            }}
+          >
+            {status === "loading" ? "Sending..." : "Send Message"}
+          </Button>
+        </motion.div>
       </Box>
     </Paper>
   );
