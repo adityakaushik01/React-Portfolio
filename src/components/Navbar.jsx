@@ -146,7 +146,7 @@ export default function Navbar() {
                         sx={{
                           position: 'relative',
                           fontWeight: activeId === id ? 700 : 400,
-                          color: activeId === id ? 'primary.main' : 'inherit',
+                          color: activeId === id ? 'primary.main' : 'text.primary',
                           '&::after': {
                             content: '""',
                             position: 'absolute',
