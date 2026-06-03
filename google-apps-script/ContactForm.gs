@@ -1,5 +1,4 @@
 const SHEET_NAME = "Contact Form Submissions";
-const SPREADSHEET_ID = "";
 
 function doPost(e) {
   const sheet = getContactSheet();
@@ -25,12 +24,10 @@ function doGet() {
 }
 
 function getContactSheet() {
-  const spreadsheet = SPREADSHEET_ID
-    ? SpreadsheetApp.openById(SPREADSHEET_ID)
-    : SpreadsheetApp.getActiveSpreadsheet();
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
 
   if (!spreadsheet) {
-    throw new Error("No spreadsheet found. Bind this script to a Google Sheet or set SPREADSHEET_ID.");
+    throw new Error("No spreadsheet found. Bind this script to a Google Sheet.");
   }
 
   let sheet = spreadsheet.getSheetByName(SHEET_NAME);
