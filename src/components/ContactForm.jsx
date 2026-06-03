@@ -13,11 +13,80 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 import { motion } from "framer-motion";
 
-const WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbxb6DAt3s1CrZlTVdUmKMhl-NgvcY8CinFQx-FKGcOzHx_I4X0dl2HF5JV_CJRX6TmFNw/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxNsb6g6DZ_vHxHyN75vLXcMbrDVzf4a9Nva1IZETJIEiehh53SDn-ir47CbcCZ1XH8/exec";
+
+const initialFormData = {
+  name: "",
+  email: "",
+  message: "",
+};
+
+const fieldSx = {
+  "& .MuiOutlinedInput-root": {
+    height: "auto",
+  },
+  "& .MuiOutlinedInput-input": {
+    py: 0.25,
+  },
+};
+
+const messageFieldSx = {
+  "& .MuiOutlinedInput-root": {
+    alignItems: "flex-start",
+    height: "auto",
+    minHeight: 140,
+    p: 1.5,
+  },
+  "& .MuiOutlinedInput-input": {
+    lineHeight: 1.6,
+    p: 0,
+  },
+};
+
+function submitToGoogleSheets(payload) {
+  return new Promise((resolve, reject) => {
+    if (!WEB_APP_URL) {
+      reject(new Error("Missing Google Sheets web app URL"));
+      return;
+    }
+
+    const iframeName = `google-sheets-submit-${Date.now()}`;
+    const iframe = document.createElement("iframe");
+    const form = document.createElement("form");
+
+    const finish = () => {
+      resolve();
+
+      iframe.remove();
+      form.remove();
+    };
+
+    iframe.name = iframeName;
+    iframe.style.display = "none";
+
+    form.method = "POST";
+    form.action = WEB_APP_URL;
+    form.target = iframeName;
+    form.style.display = "none";
+
+    Object.entries(payload).forEach(([key, value]) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = value;
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(iframe);
+    document.body.appendChild(form);
+    form.submit();
+
+    window.setTimeout(finish, 2500);
+  });
+}
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState(initialFormData);
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
 
   const handleChange = (e) => {
@@ -29,19 +98,18 @@ const ContactForm = () => {
     e.preventDefault();
     setStatus("loading");
 
-    const urlEncodedData = new URLSearchParams(formData).toString();
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+      submittedAt: new Date().toISOString(),
+      source: window.location.href,
+    };
 
     try {
-      const response = await fetch(WEB_APP_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: urlEncodedData,
-        redirect: "follow",
-      });
+      await submitToGoogleSheets(payload);
 
-      if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-
-      setFormData({ name: "", email: "", message: "" });
+      setFormData(initialFormData);
       setStatus("success");
     } catch (error) {
       console.error("Form submission error:", error);
@@ -102,6 +170,7 @@ const ContactForm = () => {
           fullWidth
           required
           disabled={status === "loading"}
+          sx={fieldSx}
         />
         <TextField
           label="Your Email"
@@ -113,6 +182,7 @@ const ContactForm = () => {
           fullWidth
           required
           disabled={status === "loading"}
+          sx={fieldSx}
         />
         <TextField
           label="Your Message"
@@ -123,8 +193,9 @@ const ContactForm = () => {
           fullWidth
           required
           multiline
-          rows={5}
+          minRows={5}
           disabled={status === "loading"}
+          sx={messageFieldSx}
         />
 
         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
