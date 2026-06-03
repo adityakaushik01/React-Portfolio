@@ -1,4 +1,14 @@
-import { Container, Typography, Grid, Paper, Chip } from "@mui/material"
+import {
+   Accordion,
+   AccordionDetails,
+   AccordionSummary,
+   Container,
+   Typography,
+   Grid,
+   Paper,
+   Chip,
+   Stack,
+} from "@mui/material"
 import {
    Timeline,
    TimelineItem,
@@ -8,6 +18,7 @@ import {
    TimelineDot,
 } from "@mui/lab"
 import WorkIcon from "@mui/icons-material/Work"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { Box } from "@mui/material"
 import { motion } from "framer-motion"
 
@@ -65,6 +76,8 @@ const skills = [
    "Postman",
 ]
 
+const getStackItems = (stack) => stack.split(/\s+(?:Â·|·)\s+/)
+
 // ─── Animation Variants ──────────────────────────────────────────────────────
 
 const sectionVariants = {
@@ -92,6 +105,15 @@ const timelineItemRight = {
       x: 0,
       transition: { duration: 0.55, ease: "easeOut" },
    },
+}
+
+const mobileCardVariants = {
+   hidden: { opacity: 0, y: 24 },
+   visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: "easeOut", delay: i * 0.08 },
+   }),
 }
 
 const skillsContainerVariants = {
@@ -168,6 +190,7 @@ export default function Experience() {
          />
 
          {/* Timeline */}
+         <Box sx={{ display: { xs: "none", md: "block" } }}>
          <Timeline position="alternate" sx={{ padding: 0 }}>
             {experienceData.map((exp, index) => (
                <TimelineItem key={index}>
@@ -229,6 +252,112 @@ export default function Experience() {
                </TimelineItem>
             ))}
          </Timeline>
+         </Box>
+
+         <Stack spacing={2} sx={{ display: { xs: "flex", md: "none" } }}>
+            {experienceData.map((exp, index) => (
+               <motion.div
+                  key={index}
+                  variants={mobileCardVariants}
+                  custom={index}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+               >
+                  <Paper
+                     elevation={2}
+                     sx={{
+                        p: 2,
+                        border: "1px solid",
+                        borderColor: "divider",
+                        borderRadius: 2,
+                     }}
+                  >
+                     <Box sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}>
+                        <Box
+                           sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: 38,
+                              height: 38,
+                              flexShrink: 0,
+                              borderRadius: "50%",
+                              bgcolor: "primary.main",
+                              color: "primary.contrastText",
+                           }}
+                        >
+                           <WorkIcon fontSize="small" />
+                        </Box>
+
+                        <Box sx={{ minWidth: 0, flex: 1 }}>
+                           <Typography variant="subtitle1" fontWeight="bold" sx={{ lineHeight: 1.25 }}>
+                              {exp.role}
+                           </Typography>
+                           <Typography variant="body2" color="primary" fontWeight="medium">
+                              {exp.company}
+                           </Typography>
+                           <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 0.5 }}>
+                              {exp.duration}
+                           </Typography>
+                           <Typography variant="caption" color="text.secondary" display="block">
+                              {exp.location}
+                           </Typography>
+                        </Box>
+                     </Box>
+
+                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.75, mt: 2 }}>
+                        {getStackItems(exp.stack).map((item) => (
+                           <Chip
+                              key={item}
+                              label={item}
+                              size="small"
+                              color="primary"
+                              variant="outlined"
+                              sx={{ borderRadius: "6px" }}
+                           />
+                        ))}
+                     </Box>
+
+                     <Accordion
+                        disableGutters
+                        elevation={0}
+                        sx={{
+                           mt: 1.5,
+                           bgcolor: "transparent",
+                           borderTop: "1px solid",
+                           borderColor: "divider",
+                           "&::before": { display: "none" },
+                        }}
+                     >
+                        <AccordionSummary
+                           expandIcon={<ExpandMoreIcon />}
+                           sx={{
+                              minHeight: 44,
+                              px: 0,
+                              "& .MuiAccordionSummary-content": { my: 1 },
+                           }}
+                        >
+                           <Typography variant="body2" fontWeight="medium">
+                              Key work
+                           </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails sx={{ px: 0, pt: 0 }}>
+                           <Box component="ul" sx={{ m: 0, pl: 2.25 }}>
+                              {exp.highlights.map((point, i) => (
+                                 <Box component="li" key={i} sx={{ mb: 0.75 }}>
+                                    <Typography variant="body2" color="text.secondary">
+                                       {point}
+                                    </Typography>
+                                 </Box>
+                              ))}
+                           </Box>
+                        </AccordionDetails>
+                     </Accordion>
+                  </Paper>
+               </motion.div>
+            ))}
+         </Stack>
 
          {/* Skills Header */}
          <Box id="skills" sx={{ mt: 8 }}>

@@ -50,7 +50,7 @@ const Footer = () => {
         }}
       >
         {/* Left — Name + Copyright */}
-        <Box>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Typography variant="body2" color="text.secondary">
             Designed and built by{" "}
             <Link
