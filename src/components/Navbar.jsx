@@ -110,7 +110,17 @@ export default function Navbar() {
       variants={navbarVariants}
       initial="hidden"
       animate="visible"
-      style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1100 }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        width: '100%',
+        maxWidth: '100vw',
+        boxSizing: 'border-box',
+        overflowX: 'clip',
+        zIndex: 1100,
+      }}
     >
       <AppBar
         position="static"
@@ -122,12 +132,18 @@ export default function Navbar() {
           mt: 'calc(var(--template-frame-height, 0px) + 28px)',
         }}
       >
-        <Container maxWidth="lg">
-          <StyledToolbar variant="dense" disableGutters>
+        <Container maxWidth="lg" sx={{ boxSizing: 'border-box', px: { xs: 1.5, sm: 3 } }}>
+          <StyledToolbar variant="dense" disableGutters sx={{ width: '100%', minWidth: 0 }}>
 
             {/* Logo + Desktop Nav Links */}
-            <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-              <img src={AdityaNavbarLogo} width={90} height={50} alt="Aditya Logo" />
+            <Box sx={{ flexGrow: 1, minWidth: 0, display: 'flex', alignItems: 'center', px: 0 }}>
+              <img
+                src={AdityaNavbarLogo}
+                width={90}
+                height={50}
+                alt="Aditya Logo"
+                style={{ display: 'block', maxWidth: '100%', flexShrink: 1 }}
+              />
 
               <motion.div
                 variants={navLinksContainerVariants}
@@ -196,7 +212,7 @@ export default function Navbar() {
             </Box>
 
             {/* Mobile: Color toggle + Hamburger */}
-            <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1, flexShrink: 0, alignItems: 'center' }}>
               <ColorModeIconDropdown size="medium" />
               <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
                 <MenuIcon />

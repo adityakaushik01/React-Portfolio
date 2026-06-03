@@ -1,5 +1,6 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
+import GlobalStyles from '@mui/material/GlobalStyles';
 import AppTheme from '../material-ui-files/AppTheme';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
@@ -14,6 +15,20 @@ export default function Home(props) {
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
+      <GlobalStyles
+        styles={{
+          html: {
+            overflowX: 'hidden',
+          },
+          body: {
+            overflowX: 'hidden',
+          },
+          '#root': {
+            maxWidth: '100%',
+            overflowX: 'clip',
+          },
+        }}
+      />
       <Navbar />
       <Hero />
       <About />
