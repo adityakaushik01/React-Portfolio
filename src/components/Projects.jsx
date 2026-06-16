@@ -1,7 +1,9 @@
 import Box from "@mui/material/Box";
-import { Container, Typography, Grid, Paper, Chip } from "@mui/material";
+import { Container, Typography, Grid, Paper, Chip, Tooltip } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import WorkIcon from '@mui/icons-material/Work';
 import FaceIcon from "@mui/icons-material/Face";
 import HouseIcon from "@mui/icons-material/House";
 import PersonIcon from "@mui/icons-material/Person";
@@ -36,6 +38,57 @@ const projects = [
     githubLink: "https://github.com/adityakaushik01/Kundali-Marg",
     liveLink: "https://kundali-marg.vercel.app/",
   },
+  {
+    icon: <WorkIcon sx={{ fontSize: 28, color: "primary.main" }} />,
+    title: "NextHire",
+    subtitle: "AI-powered job search and resume builder platform to streamline your job hunt.",
+    description:
+      "A production-grade job search platform with AI-driven job matching, ATS-optimized resume building, and application tracking — built end-to-end from authentication to PDF generation.",
+    highlights: [
+      "Built modular REST API with Express.js and Prisma ORM across auth, jobs, resume, skills, uploads, and applications modules.",
+      "Implemented complete auth system with JWT, bcrypt, OTP email verification via Brevo, and magic-link password reset flow.",
+      "Integrated AI-powered ATS scoring and job-matching engine to surface relevant opportunities and optimize resume content.",
+      "Engineered resume-to-PDF generation pipeline using Puppeteer with support for multiple templates targeting different career profiles.",
+    ],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Express.js",
+      "PostgreSQL",
+      "Prisma",
+      "Tailwind CSS",
+      "JWT",
+      "Brevo",
+      "Google Gemini AI",
+    ],
+    githubLink: "",
+    liveLink: "https://nexthire-tech.vercel.app/",
+  },
+  {
+  icon: <CameraAltIcon sx={{ fontSize: 28, color: "primary.main" }} />,
+  title: "Through The Lens",
+  subtitle: "3D Immersive Photography Gallery",
+  description:
+    "An immersive digital photography exhibition platform that recreates the feeling of walking through a curated art gallery using 3D interactions and smooth animations.",
+  highlights: [
+    "Built an interactive 3D gallery experience using React Three Fiber and Drei, moving beyond traditional grid-based photo portfolios.",
+    "Integrated Cloudinary for optimized image delivery with tag-based API fetching for scalable media management.",
+    "Implemented smooth animations and transitions with Framer Motion for a cinematic browsing experience.",
+    "Optimized for both mobile and desktop with a responsive UI built on Tailwind CSS and Vite for lightning-fast performance.",
+  ],
+  technologies: [
+    "React.js",
+    "Three.js",
+    "React Three Fiber",
+    "Drei",
+    "Framer Motion",
+    "Tailwind CSS",
+    "Cloudinary",
+    "Vite",
+  ],
+  githubLink: "https://github.com/adityakaushik01/through-the-lens",
+  liveLink: "https://through-the-lens.vercel.app/",
+},
   {
     icon: <PersonIcon sx={{ fontSize: 28, color: "primary.main" }} />,
     title: "React Portfolio",
@@ -211,37 +264,65 @@ export default function Projects() {
                   {project.icon}
 
                   <Box sx={{ display: "flex", gap: 1 }}>
-                    <motion.div
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
+                    {/* GitHub Button — shows tooltip if repo is private */}
+                    <Tooltip
+                      title={
+                        !project.githubLink
+                          ? "Private repository — check live link for project"
+                          : ""
+                      }
+                      arrow
+                      placement="top"
                     >
-                      <Box
-                        component="a"
-                        href={project.githubLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitHub"
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          width: 38,
-                          height: 38,
-                          borderRadius: "50%",
-                          border: "2px solid",
-                          borderColor: "primary.main",
-                          color: "primary.main",
-                          transition: "all 0.25s ease",
-                          "&:hover": {
-                            backgroundColor: "primary.main",
-                            color: "#fff",
-                          },
-                        }}
-                      >
-                        <GitHubIcon fontSize="small" />
-                      </Box>
-                    </motion.div>
+                      {/* span needed so Tooltip works when inner element is non-interactive */}
+                      <span>
+                        <motion.div
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <Box
+                            component={project.githubLink ? "a" : "div"}
+                            href={project.githubLink || undefined}
+                            target={project.githubLink ? "_blank" : undefined}
+                            rel={
+                              project.githubLink
+                                ? "noopener noreferrer"
+                                : undefined
+                            }
+                            aria-label="GitHub"
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: 38,
+                              height: 38,
+                              borderRadius: "50%",
+                              border: "2px solid",
+                              borderColor: project.githubLink
+                                ? "primary.main"
+                                : "action.disabled",
+                              color: project.githubLink
+                                ? "primary.main"
+                                : "action.disabled",
+                              cursor: project.githubLink
+                                ? "pointer"
+                                : "not-allowed",
+                              transition: "all 0.25s ease",
+                              "&:hover": project.githubLink
+                                ? {
+                                    backgroundColor: "primary.main",
+                                    color: "#fff",
+                                  }
+                                : {},
+                            }}
+                          >
+                            <GitHubIcon fontSize="small" />
+                          </Box>
+                        </motion.div>
+                      </span>
+                    </Tooltip>
 
+                    {/* Live Link Button */}
                     {project.liveLink && (
                       <motion.div
                         whileHover={{ scale: 1.1 }}

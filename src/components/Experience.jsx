@@ -55,6 +55,9 @@ const experienceData = [
 
 const skills = [
    "React.js",
+   "TypeScript",
+   "Next.js",
+   "PostgreSQL",
    "JavaScript (ES6+)",
    "Node.js",
    "Express.js",
