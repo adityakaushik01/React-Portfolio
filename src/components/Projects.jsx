@@ -91,7 +91,7 @@ const projects = [
 },
   {
     icon: <PersonIcon sx={{ fontSize: 28, color: "primary.main" }} />,
-    title: "React Portfolio",
+    title: "Portfolio",
     subtitle: "Frontend — Personal Project",
     description:
       "A responsive personal portfolio website built with React.js, Material UI, and Tailwind CSS — the very site you're looking at right now.",
@@ -102,7 +102,7 @@ const projects = [
     ],
     technologies: ["React.js", "Tailwind CSS", "Material UI"],
     githubLink: "https://github.com/adityakaushik01/React-Portfolio",
-    liveLink: "https://adityakaushik01.github.io/React-Portfolio/",
+    liveLink: "https://aditya-kaushik.vercel.io/",
   },
   {
     icon: <FaceIcon sx={{ fontSize: 28, color: "primary.main" }} />,
